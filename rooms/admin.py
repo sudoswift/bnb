@@ -1,20 +1,8 @@
 from django.contrib import admin
 from . import models
 
-@admin.register(models.RoomType)
+@admin.register(models.RoomType,models.Amenity,models.Facility,models.HouseRule)
 class ItemAdmin(admin.ModelAdmin):
-    pass
-
-@admin.register(models.Amenity)
-class AmenityAdmin(admin.ModelAdmin):
-    pass
-
-@admin.register(models.Facility)
-class FacilityAdmin(admin.ModelAdmin):
-    pass
-
-@admin.register(models.HouseRule)
-class HouseRule(admin.ModelAdmin):
     pass
 
 @admin.register(models.Room)

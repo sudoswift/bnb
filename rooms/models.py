@@ -16,19 +16,24 @@ class AbstractItem(core_models.TimeStampedModel):
     
 class RoomType(AbstractItem):
     """RoomType Object Definition"""
-    pass
+    class Meta:
+        verbose_name_plural = "Room Types"
 
+# verbose_name_plural
 class Amenity(AbstractItem):
     """Amenity Model Definition"""
-    pass
-
+    class Meta:
+        verbose_name_plural = "Amenities"
+        
 class Facility(AbstractItem):
     """Facility Model Definition"""
-    pass
+    class Meta:
+        verbose_name_plural = "Facilities"
 
 class HouseRule(AbstractItem):
     """HouseRule Model Definition"""
-    pass
+    class Meta:
+        verbose_name_plural = "House Rules"
 
 
 class Room(core_models.TimeStampedModel):
