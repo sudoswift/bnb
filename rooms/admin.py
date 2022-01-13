@@ -55,7 +55,12 @@ class RoomAdmin(admin.ModelAdmin):
         "check_in",
         "check_out",
         "instant_book",
+        "count_amenities",
     )
+    
+    # # https://docs.djangoproject.com/en/4.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.ordering
+    # ordering = ['-name', '-price', '-bedrooms']
+    
     #admin 페이지 오른 쪽에 아래 튜플에 있는 Model 의 field 값들의 필터를 만들어 준다.
     list_filter = (
         "instant_book",
@@ -81,6 +86,11 @@ class RoomAdmin(admin.ModelAdmin):
         "facilities",
         "house_rules",
     ]
+    
+    #이거를 Adming Custom이라고 부른다
+    # 이 함수에서 self는 RoomAdmin, obj는 현재의 row를 뜻한다.
+    def count_amenities(self, obj):
+        return  obj.amenities.count()
     
     
 
