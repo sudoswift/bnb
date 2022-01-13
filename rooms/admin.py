@@ -9,7 +9,80 @@ class ItemAdmin(admin.ModelAdmin):
 @admin.register(models.Room)
 class RoomAdmin(admin.ModelAdmin):
     """Room Admin Definition"""
-    pass
+    
+    # https://docs.djangoproject.com/en/4.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.fieldsets
+    fieldsets = (
+        ("Basic Info", {
+            "fields": (
+                "name", "description", "country", "address", "price"
+            ),
+        }),
+        ("Times",{
+            "fields": (
+                "check_in", "check_out", "instant_book"
+            ),
+        }),
+        ("Spaces",{
+            "fields": (
+                "guests", "beds", "bedrooms", "baths"
+            ),
+        }),
+        ("More Spaces",{
+            'classes': ('collapse',), # classes를 사용해서 admin 에서 보기/감추기 기능을 삽입할 수 있다.
+            "fields": (
+                "amenities", "facilities", "house_rules"
+            ),
+        }),
+        ("Last Details",{
+            "fields": (
+                "host",
+            ),
+        }),
+    )
+    
+    
+    
+    #admin 페이지에서 아래 튜플에 있는 Model의 field 값들을 리스트로 나뉘어서 표현해준다.
+    list_display = (
+        "name",
+        "country",
+        "city",
+        "price",
+        "guests",
+        "beds",
+        "bedrooms",
+        "baths",
+        "check_in",
+        "check_out",
+        "instant_book",
+    )
+    #admin 페이지 오른 쪽에 아래 튜플에 있는 Model 의 field 값들의 필터를 만들어 준다.
+    list_filter = (
+        "instant_book",
+        "host__superhost",
+        "host__gender",
+        "room_type",
+        "amenities",
+        "facilities",
+        "house_rules",
+        "city",
+        "country",
+    )
+    
+    # https://docs.djangoproject.com/en/4.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.search_fields
+    # ForeignKey나 ManyToMany 를 이용해 만들어놓은 Model의 field 값을 admin에 가져오고 싶다면 __언더스코어두개를 붙이면 된다.
+    search_fields = [
+        'city', "^host__username"
+    ]
+    
+    # https://docs.djangoproject.com/en/4.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.filter_horizontal
+    filter_horizontal = [
+        "amenities",
+        "facilities",
+        "house_rules",
+    ]
+    
+    
 
 @admin.register(models.Photo)
 class PhotoAdmin(admin.ModelAdmin):
