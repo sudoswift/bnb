@@ -1,5 +1,6 @@
 # import 할 때에는 1순위: 파이썬, 2순위: 장고, 3순위: 써드파티앱, 4순위: 내가 만든 앱 순으로 써야한다.
-from django.db import models 
+from django.db import models
+from django.db.models.deletion import CASCADE 
 from django_countries.fields import CountryField
 from core import models as core_models
 from users import models as user_models
@@ -14,6 +15,7 @@ class AbstractItem(core_models.TimeStampedModel):
     def __str__(self):
         return self.name
     
+# verbose_name
 class RoomType(AbstractItem):
     """RoomType Object Definition"""
     class Meta:
@@ -25,16 +27,17 @@ class Amenity(AbstractItem):
     class Meta:
         verbose_name_plural = "Amenities"
         
+# verbose_name_plural
 class Facility(AbstractItem):
     """Facility Model Definition"""
     class Meta:
         verbose_name_plural = "Facilities"
-
+        
+# verbose_name
 class HouseRule(AbstractItem):
     """HouseRule Model Definition"""
     class Meta:
         verbose_name_plural = "House Rules"
-
 
 class Room(core_models.TimeStampedModel):
     """Room Model Definition"""
@@ -60,3 +63,13 @@ class Room(core_models.TimeStampedModel):
     
     def __str__(self):
         return self.name
+    
+class Photo(core_models.TimeStampedModel):
+    """Photo Model Definition"""
+    
+    caption = models.CharField(max_length=80)
+    file = models.ImageField()
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+     
+    def __str__(self):
+        return self.caption
