@@ -55,11 +55,11 @@ class Room(core_models.TimeStampedModel):
     check_in = models.TimeField()
     check_out = models.TimeField()
     instant_book = models.BooleanField(default=False)
-    host = models.ForeignKey(user_models.User, on_delete=models.CASCADE)# ForeignKey는 이미 있는 model(database)를 다른 model에 연동시키는 것임!! many-to-one relationship 이다.
-    room_type = models.ForeignKey(RoomType, on_delete = models.SET_NULL, null=True)
-    amenities = models.ManyToManyField(Amenity, blank=True)
-    facilities = models.ManyToManyField(Facility, blank=True)
-    house_rules = models.ManyToManyField(HouseRule, blank=True)
+    host = models.ForeignKey("users.User", related_name="rooms" ,on_delete=models.CASCADE)# ForeignKey는 이미 있는 model(database)를 다른 model에 연동시키는 것임!! many-to-one relationship 이다.
+    room_type = models.ForeignKey(RoomType, related_name="rooms" ,on_delete = models.SET_NULL, null=True)
+    amenities = models.ManyToManyField(Amenity, related_name="rooms" ,blank=True)
+    facilities = models.ManyToManyField(Facility, related_name="rooms" ,blank=True)
+    house_rules = models.ManyToManyField(HouseRule, related_name="rooms" ,blank=True)
     
     def __str__(self):
         return self.name

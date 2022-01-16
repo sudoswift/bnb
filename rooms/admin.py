@@ -98,3 +98,6 @@ class RoomAdmin(admin.ModelAdmin):
 class PhotoAdmin(admin.ModelAdmin):
     """Photo Admin Definition"""
     pass
+
+
+# QuerySet : https://docs.djangoproject.com/en/4.0/ref/models/querysets/

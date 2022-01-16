@@ -12,8 +12,8 @@ class Review(core_models.TimeStampedModel):
     location = models.IntegerField()
     check_in = models.IntegerField()
     value = models.IntegerField()
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
-    room = models.ForeignKey("rooms.Room", on_delete=models.CASCADE)
+    user = models.ForeignKey("users.User", related_name="reviews" ,on_delete=models.CASCADE)
+    room = models.ForeignKey("rooms.Room", related_name="reviews" ,on_delete=models.CASCADE)
 
     # ForeignKey에서 가져온 모델의 Field의 모델의 Field 값들에 접근을 해서 그 값을 admin으로 가져올 수 있다!! 또한 그 Model의 Field가 또 ForeignKey라면(ForeignKey의 ForeignKey 값) 그 값 또한 가져올 수 있다!!
     def __str__(self):
