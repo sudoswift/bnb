@@ -1,9 +1,19 @@
 from django.contrib import admin
 from . import models
 
+#여기서 list_display 할 때는 register 한 Model이 여러개 니까 def 에서 obj.rooms.count()로 해준다.
 @admin.register(models.RoomType,models.Amenity,models.Facility,models.HouseRule)
 class ItemAdmin(admin.ModelAdmin):
     """Item Admin Definition"""
+    
+    list_display = (
+        "name",
+        "used_by",
+    )
+    
+    def used_by(self,obj):
+        return obj.rooms.count()
+    
     pass
 
 @admin.register(models.Room)
@@ -56,6 +66,7 @@ class RoomAdmin(admin.ModelAdmin):
         "check_out",
         "instant_book",
         "count_amenities",
+        "count_photos",
     )
     
     # # https://docs.djangoproject.com/en/4.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.ordering
@@ -91,6 +102,9 @@ class RoomAdmin(admin.ModelAdmin):
     # 이 함수에서 self는 RoomAdmin, obj는 현재의 row를 뜻한다.
     def count_amenities(self, obj):
         return  obj.amenities.count()
+    
+    def count_photos(self, obj):
+        return obj.photos.count()
     
     
 

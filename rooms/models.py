@@ -17,7 +17,7 @@ class AbstractItem(core_models.TimeStampedModel):
     
 # verbose_name
 class RoomType(AbstractItem):
-    """RoomType Object Definition"""
+    """RoomType Model Definition"""
     class Meta:
         verbose_name_plural = "Room Types"
 
@@ -69,7 +69,7 @@ class Photo(core_models.TimeStampedModel):
     
     caption = models.CharField(max_length=80)
     file = models.ImageField()
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    room = models.ForeignKey("Room", related_name="photos" ,on_delete=models.CASCADE)
      
     def __str__(self):
         return self.caption
